@@ -2,24 +2,24 @@ package jp.techacademy.shimbo.akito.originalapp;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.reflect.Field;
 
-import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType.Line;
-
-/**
- * Created by Develop on 2017/04/13.
- */
 
 public class Cell {
     ShapeRenderer mShapeRenderer;
-    public static float CELL_TEST_POSITION_X =5f;
-    public static float CELL_TEST_POSITION_Y =8f;
+    public static float CELL_STANDARD_COORDINATE_X = FieldScreen.WORLD_WIDTH / 2;
+    public static float CELL_STANDARD_COORDINATE_Y = FieldScreen.WORLD_HEIGHT /2;//基準座標（ど真ん中
 
     public static float CELL_RADIUS = 0.8f;
 
 
 
-    float PositionX;
-    float PositionY;
+    float CoordinateX;//セルの"座標"
+    float CoordinateY;
+
+    int PositionX;//セルの"位置番号"
+    int PositionY;
+
 
     float upperVertex;//上段の角のY座標
     float middleVertex;//中段の角のY座標
@@ -30,25 +30,84 @@ public class Cell {
     float middleRightVertex;//右側の角のX座標
     float middleLeftVertex;//左側の角のX座標
 
-    Cell(){
-        PositionX = CELL_TEST_POSITION_X;
-        PositionY = CELL_TEST_POSITION_Y;
+    Cell(int positionNumber){
 
-        upperVertex = (float)(Math.sin(Math.PI / 3) * CELL_RADIUS + PositionY);
-        middleVertex = PositionY;
-        underVertex = (float)( -Math.sin(Math.PI / 3) * CELL_RADIUS + PositionY);
+        switch (positionNumber / 10){       //セルの列、X座標を設定
+            case 0://0列目
+                PositionX = 0;
+                CoordinateX = CELL_STANDARD_COORDINATE_X - 3*CELL_RADIUS;
+                break;
+            case 1://1列目
+                PositionX = 1;
+                CoordinateX = (float)(CELL_STANDARD_COORDINATE_X - 1.5*CELL_RADIUS);
+                break;
+            case 2://2列目
+                PositionX = 2;
+                CoordinateX = CELL_STANDARD_COORDINATE_X;
+                break;
+            case 3://3列目
+                PositionX = 3;
+                CoordinateX = (float)(CELL_STANDARD_COORDINATE_X + 1.5*CELL_RADIUS);
+                break;
+            case 4://4列目
+                PositionX = 4;
+                CoordinateX = CELL_STANDARD_COORDINATE_X + 3*CELL_RADIUS;
+                break;
 
-        rightVertex = PositionX + CELL_RADIUS;
-        leftVertex = PositionX - CELL_RADIUS;
-        middleRightVertex = PositionX + (float)(Math.cos(Math.PI / 3) * CELL_RADIUS);
-        middleLeftVertex = PositionX - (float)(Math.cos(Math.PI/3) * CELL_RADIUS);
+        }
+
+        switch(positionNumber % 10){
+            case 0:
+                PositionY = 0;
+                CoordinateY = (float)(CELL_STANDARD_COORDINATE_Y - (Math.sin(Math.PI / 3) * CELL_RADIUS * 4));
+                break;
+            case 1:
+                PositionY = 1;
+                CoordinateY = (float)(CELL_STANDARD_COORDINATE_Y - (Math.sin(Math.PI / 3) * CELL_RADIUS * 2));
+                //偶数列の場合
+                if (CoordinateX % 2 == 0){
+                    CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
+                }
+                break;
+            case 2:
+                PositionY = 2;
+                CoordinateY = CELL_STANDARD_COORDINATE_Y;
+                if (CoordinateX % 2 == 0){
+                    CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
+                }
+                break;
+            case 3:
+                PositionY = 3;
+                CoordinateY = (float)(CELL_STANDARD_COORDINATE_Y + (Math.sin(Math.PI / 3) * CELL_RADIUS * 2));
+                if (CoordinateX % 2 == 0){
+                    CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
+                }
+                break;
+            case 4:
+                PositionY = 4;
+                CoordinateY = (float)(CELL_STANDARD_COORDINATE_Y + (Math.sin(Math.PI / 3) * CELL_RADIUS * 4));
+                if (CoordinateX % 2 == 0){
+                    CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
+                }
+        }
+
+
+
+        //各頂点を計算
+        upperVertex = (float)(Math.sin(Math.PI / 3) * CELL_RADIUS + CoordinateY);
+        middleVertex = CoordinateY;
+        underVertex = (float)( -Math.sin(Math.PI / 3) * CELL_RADIUS + CoordinateY);
+
+        rightVertex = CoordinateX + CELL_RADIUS;
+        leftVertex = CoordinateX - CELL_RADIUS;
+        middleRightVertex = CoordinateX + (float)(Math.cos(Math.PI / 3) * CELL_RADIUS);
+        middleLeftVertex = CoordinateX - (float)(Math.cos(Math.PI/3) * CELL_RADIUS);
     }
 
     public void draw(Camera camera){
-        Camera mCamera = camera;
 
         mShapeRenderer = new ShapeRenderer();
-        mShapeRenderer.setProjectionMatrix(mCamera.combined);
+        mShapeRenderer.setProjectionMatrix(camera.combined);
         mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         mShapeRenderer.setColor(0,0,0,0);
         mShapeRenderer.line(middleRightVertex, upperVertex, rightVertex, middleVertex);
