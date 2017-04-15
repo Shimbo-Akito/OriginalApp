@@ -30,10 +30,10 @@ public class FieldScreen extends ScreenAdapter{
     FitViewport mViewPort;
     ArrayList<Cell> Cells;
 
-    public FieldScreen(OriginalApp game){           //コンストラクタ
+    public FieldScreen(OriginalApp game) {           //コンストラクタ
         mGame = game;
 
-        Gdx.gl.glClearColor(256,256,256,1);
+        Gdx.gl.glClearColor(256, 256, 256, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //カメラの生成
@@ -43,6 +43,7 @@ public class FieldScreen extends ScreenAdapter{
         Cells = new ArrayList<Cell>();
 
         createField();
+
     }
 
     @Override
@@ -50,6 +51,7 @@ public class FieldScreen extends ScreenAdapter{
         Gdx.gl.glClearColor(256,256,256,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        drawCells();
         //mGame.batch.begin();
         //レンダー描画
 
@@ -64,14 +66,14 @@ public class FieldScreen extends ScreenAdapter{
         for(int i = 0; i < 5; i++){
             switch (i){
                 case 0:
-                    for(int j = 1; j < 4; j++ ){
+                    for(int j = 0; j < 3; j++ ){
                         Cell mCell;
                         mCell = new Cell(HEX_COORDINATE[i][j]);
                         Cells.add(mCell);
                     }
                     break;
                 case 1:
-                    for(int j = 1; j < 5; j++ ){
+                    for(int j = 0; j < 4; j++ ){
                         Cell mCell;
                         mCell = new Cell(HEX_COORDINATE[i][j]);
                         Cells.add(mCell);
@@ -85,14 +87,14 @@ public class FieldScreen extends ScreenAdapter{
                     }
                     break;
                 case 3:
-                    for(int j = 1; j <5; j++ ){
+                    for(int j = 0; j <4; j++ ){
                         Cell mCell;
                         mCell = new Cell(HEX_COORDINATE[i][j]);
                         Cells.add(mCell);
                     }
                     break;
                 case 4:
-                    for(int j = 1; j < 4; j++ ){
+                    for(int j = 0; j < 3; j++ ){
                         Cell mCell;
                         mCell = new Cell(HEX_COORDINATE[i][j]);
                         Cells.add(mCell);

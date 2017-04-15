@@ -65,28 +65,28 @@ public class Cell {
                 PositionY = 1;
                 CoordinateY = (float)(CELL_STANDARD_COORDINATE_Y - (Math.sin(Math.PI / 3) * CELL_RADIUS * 2));
                 //偶数列の場合
-                if (CoordinateX % 2 == 0){
+                if (PositionX % 2 == 1){
                     CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
                 }
                 break;
             case 2:
                 PositionY = 2;
                 CoordinateY = CELL_STANDARD_COORDINATE_Y;
-                if (CoordinateX % 2 == 0){
+                if (PositionX % 2 == 1){
                     CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
                 }
                 break;
             case 3:
                 PositionY = 3;
                 CoordinateY = (float)(CELL_STANDARD_COORDINATE_Y + (Math.sin(Math.PI / 3) * CELL_RADIUS * 2));
-                if (CoordinateX % 2 == 0){
+                if (PositionX % 2 == 1){
                     CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
                 }
                 break;
             case 4:
                 PositionY = 4;
                 CoordinateY = (float)(CELL_STANDARD_COORDINATE_Y + (Math.sin(Math.PI / 3) * CELL_RADIUS * 4));
-                if (CoordinateX % 2 == 0){
+                if (PositionX % 2 == 1){
                     CoordinateY = (float)(CoordinateY - (Math.sin(Math.PI / 3) * CELL_RADIUS));
                 }
         }
