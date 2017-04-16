@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class FieldScreen extends ScreenAdapter{
     OrthographicCamera mCamera;
     FitViewport mViewPort;
     ArrayList<Cell> Cells;
+    Player myPlayer;
+
+    
 
     public FieldScreen(OriginalApp game) {           //コンストラクタ
         mGame = game;
@@ -42,6 +46,8 @@ public class FieldScreen extends ScreenAdapter{
         mViewPort = new FitViewport(CAMERA_WIDTH, CAMERA_HEIGHT, mCamera);
         Cells = new ArrayList<Cell>();
 
+        myPlayer =  new Player(0);
+
         createField();
 
     }
@@ -52,6 +58,7 @@ public class FieldScreen extends ScreenAdapter{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         drawCells();
+        myPlayer.draw(mCamera);
         //mGame.batch.begin();
         //レンダー描画
 
