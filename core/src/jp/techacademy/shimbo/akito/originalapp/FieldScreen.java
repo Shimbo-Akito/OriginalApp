@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
+
 
 
 public class FieldScreen extends ScreenAdapter{
@@ -31,8 +33,10 @@ public class FieldScreen extends ScreenAdapter{
     FitViewport mViewPort;
     ArrayList<Cell> Cells;
     Player myPlayer;
+    ShapeRenderer mShapeRenderer;
 
-    
+    Vector3 justTouchedPoint;
+    Vector3 isTouchedPoint;
 
     public FieldScreen(OriginalApp game) {           //コンストラクタ
         mGame = game;
@@ -48,6 +52,9 @@ public class FieldScreen extends ScreenAdapter{
 
         myPlayer =  new Player(0);
 
+        justTouchedPoint = new Vector3();
+        isTouchedPoint = new Vector3();
+
         createField();
 
     }
@@ -57,11 +64,10 @@ public class FieldScreen extends ScreenAdapter{
         Gdx.gl.glClearColor(256,256,256,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        drawCells();
-        myPlayer.draw(mCamera);
-        //mGame.batch.begin();
-        //レンダー描画
 
+        update(delta);
+
+        //mGame.batch.begin();
 
         //mGame.batch.end();
     }
@@ -118,6 +124,39 @@ public class FieldScreen extends ScreenAdapter{
         for (int i = 0; i < Cells.size(); i++){
             Cells.get(i).draw(mCamera);
         }
+    }
+
+    private void update(float delta){
+
+        double dragAngle;
+        if (Gdx.input.justTouched()){
+            justTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0);
+
+        }
+        if(Gdx.input.isTouched()){
+
+
+            isTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0);
+            if(isTouchedPoint.y - justTouchedPoint.y != 0 || isTouchedPoint.x - justTouchedPoint.x != 0) {
+                dragAngle = -Math.atan2(isTouchedPoint.y - justTouchedPoint.y, isTouchedPoint.x - justTouchedPoint.x);
+
+                myPlayer.update(delta, dragAngle);
+                mShapeRenderer = new ShapeRenderer();
+                mShapeRenderer.setProjectionMatrix(mCamera.combined);
+                mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                mShapeRenderer.setColor(0,256,0,0);
+                mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS);
+                mShapeRenderer.end();
+            }
+        }else{
+            justTouchedPoint.set(0,0,0);
+            isTouchedPoint.set(0,0,0);
+        }
+
+        drawCells();
+        myPlayer.draw(mCamera);
+
+
     }
 
 }

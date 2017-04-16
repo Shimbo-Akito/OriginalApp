@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player {
     ShapeRenderer mShapeRenderer;
-    static float PLAYER_VELOCITY = 5.0f;
+    static float PLAYER_VELOCITY = 3.0f;
 
     static int PLAYER_COLOR_BLUE = 0;
     static int PLAYER_COLOR_RED = 1;
@@ -54,6 +54,20 @@ public class Player {
         mShapeRenderer.line( leftBaseX , leftBaseY,(float)(CoordinateX - Math.cos(angle) * PLAYER_RADIUS * 2 /3),(float)(CoordinateY - Math.sin(angle) * PLAYER_RADIUS /2 ));
 
         mShapeRenderer.end();
+    }
+
+    public void update (float delta, double dragAngle){
+        angle = dragAngle;
+
+        CoordinateX = (float)(delta * Math.cos(angle) * PLAYER_VELOCITY + CoordinateX);
+        CoordinateY = (float)(delta * Math.sin(angle) * PLAYER_VELOCITY + CoordinateY);
+
+        apexX = (float)(CoordinateX + PLAYER_RADIUS * Math.cos(angle));
+        apexY = (float)(CoordinateY + PLAYER_RADIUS * Math.sin(angle));
+        rightBaseX = (float)(CoordinateX + PLAYER_RADIUS * Math.cos(angle - 5*Math.PI/6));
+        rightBaseY = (float)(CoordinateY + PLAYER_RADIUS * Math.sin(angle - 5*Math.PI/6));
+        leftBaseX = (float)(CoordinateX + PLAYER_RADIUS * Math.cos(angle + 5*Math.PI/6));
+        leftBaseY = (float)(CoordinateY + PLAYER_RADIUS * Math.sin(angle + 5*Math.PI/6));
     }
 
 }
