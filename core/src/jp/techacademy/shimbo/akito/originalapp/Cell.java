@@ -8,9 +8,9 @@ import com.badlogic.gdx.utils.reflect.Field;
 public class Cell {
     ShapeRenderer mShapeRenderer;
     public static float CELL_STANDARD_COORDINATE_X = FieldScreen.WORLD_WIDTH / 2;
-    public static float CELL_STANDARD_COORDINATE_Y = FieldScreen.WORLD_HEIGHT /2;//基準座標（ど真ん中
+    public static float CELL_STANDARD_COORDINATE_Y = FieldScreen.WORLD_HEIGHT /2;//基準座標
 
-    public static float CELL_RADIUS = 0.8f;
+    public static float CELL_RADIUS = 0.6f;
 
 
 

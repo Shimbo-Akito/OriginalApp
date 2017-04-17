@@ -2,6 +2,7 @@ package jp.techacademy.shimbo.akito.originalapp;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -130,24 +131,27 @@ public class FieldScreen extends ScreenAdapter{
 
         double dragAngle;
         if (Gdx.input.justTouched()){
-            justTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0);
+
+            mCamera.unproject(justTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0));
 
         }
         if(Gdx.input.isTouched()){
+            mCamera.unproject(isTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0));
 
-
-            isTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0);
             if(isTouchedPoint.y - justTouchedPoint.y != 0 || isTouchedPoint.x - justTouchedPoint.x != 0) {
-                dragAngle = -Math.atan2(isTouchedPoint.y - justTouchedPoint.y, isTouchedPoint.x - justTouchedPoint.x);
+                dragAngle = Math.atan2(isTouchedPoint.y - justTouchedPoint.y, isTouchedPoint.x - justTouchedPoint.x);
 
                 myPlayer.update(delta, dragAngle);
-                mShapeRenderer = new ShapeRenderer();
-                mShapeRenderer.setProjectionMatrix(mCamera.combined);
-                mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                mShapeRenderer.setColor(0,256,0,0);
-                mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS);
-                mShapeRenderer.end();
+
             }
+            mShapeRenderer = new ShapeRenderer();
+            mShapeRenderer.setProjectionMatrix(mCamera.combined);
+            mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            mShapeRenderer.setColor(Color.LIGHT_GRAY);
+            mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS,16);
+            mShapeRenderer.setColor(Color.GRAY);
+            mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS / 2,16);
+            mShapeRenderer.end();
         }else{
             justTouchedPoint.set(0,0,0);
             isTouchedPoint.set(0,0,0);
