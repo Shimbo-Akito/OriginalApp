@@ -32,6 +32,7 @@ public class Cell {
     float middleLeftVertex;//左側の角のX座標
 
     Cell(int positionNumber){
+        mShapeRenderer = new ShapeRenderer();
 
         switch (positionNumber / 10){       //セルの列、X座標を設定
             case 0://0列目
@@ -108,7 +109,7 @@ public class Cell {
     public void draw(Camera camera){
 
         Gdx.gl.glLineWidth(4);
-        mShapeRenderer = new ShapeRenderer();
+
         mShapeRenderer.setProjectionMatrix(camera.combined);
         mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         mShapeRenderer.setColor(0,0,0,0);

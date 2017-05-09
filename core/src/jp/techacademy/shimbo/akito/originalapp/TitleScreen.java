@@ -70,7 +70,7 @@ public class TitleScreen extends ScreenAdapter{
         mGame.batch.begin();
 
         font.setColor(com.badlogic.gdx.graphics.Color.BLACK);
-        font.draw(mGame.batch, "Start", 3*WORLD_WIDTH/7,WORLD_HEIGHT/2);
+        font.draw(mGame.batch, "Ready?", 3*WORLD_WIDTH/7,WORLD_HEIGHT/2);
 
         mGame.batch.end();
 

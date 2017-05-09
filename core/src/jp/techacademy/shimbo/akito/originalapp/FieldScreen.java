@@ -50,6 +50,7 @@ public class FieldScreen extends ScreenAdapter{
         //カメラの生成
         mCamera = new OrthographicCamera();
         mCamera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
+        mShapeRenderer = new ShapeRenderer();
         mViewPort = new FitViewport(CAMERA_WIDTH, CAMERA_HEIGHT, mCamera);
         Cells = new ArrayList<Cell>();
 
@@ -151,13 +152,13 @@ public class FieldScreen extends ScreenAdapter{
                 myPlayer.update(delta, dragAngle);
 
             }
-            mShapeRenderer = new ShapeRenderer();
+
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             mShapeRenderer.setColor(Color.LIGHT_GRAY);
-            mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS,16);
+            mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS,64);
             mShapeRenderer.setColor(Color.GRAY);
-            mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS / 2,16);
+            mShapeRenderer.circle(justTouchedPoint.x,justTouchedPoint.y, Cell.CELL_RADIUS / 2,64);
             mShapeRenderer.end();
         }else{
             justTouchedPoint.set(0,0,0);

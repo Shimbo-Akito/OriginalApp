@@ -12,6 +12,7 @@ public class Player {
     ShapeRenderer mShapeRenderer;
     static float PLAYER_VELOCITY = 6.0f;
 
+
     static int PLAYER_COLOR_BLUE = 0;
     static int PLAYER_COLOR_RED = 1;
     static float PLAYER_RADIUS = Cell.CELL_RADIUS * 0.8f;
@@ -40,11 +41,13 @@ public class Player {
         rightBaseY = (float)(CoordinateY + PLAYER_RADIUS * Math.sin(angle - 5*Math.PI/6));
         leftBaseX = (float)(CoordinateX + PLAYER_RADIUS * Math.cos(angle + 5*Math.PI/6));
         leftBaseY = (float)(CoordinateY + PLAYER_RADIUS * Math.sin(angle + 5*Math.PI/6));
+
+        mShapeRenderer = new ShapeRenderer();
     }
 
     public void draw(OrthographicCamera camera){
 
-        mShapeRenderer = new ShapeRenderer();
+
         mShapeRenderer.setProjectionMatrix(camera.combined);
         mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         mShapeRenderer.setColor(0,0,0,0);
