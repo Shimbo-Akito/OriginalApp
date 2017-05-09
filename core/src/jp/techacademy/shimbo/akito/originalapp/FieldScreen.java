@@ -28,6 +28,8 @@ public class FieldScreen extends ScreenAdapter{
     static final float CAMERA_WIDTH = 10;
     static final float CAMERA_HEIGHT = 15;//カメラのサイズ
 
+    double dragAngle;
+
     private OriginalApp mGame;
 
     OrthographicCamera mCamera;
@@ -53,8 +55,13 @@ public class FieldScreen extends ScreenAdapter{
 
         myPlayer =  new Player(0);
 
+        dragAngle = Math.PI / 2;
         justTouchedPoint = new Vector3();
         isTouchedPoint = new Vector3();
+
+        if(Gdx.input.isTouched()) {
+            mCamera.unproject(justTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0));
+        }
 
         createField();
 
@@ -129,7 +136,7 @@ public class FieldScreen extends ScreenAdapter{
 
     private void update(float delta){
 
-        double dragAngle;
+
         if (Gdx.input.justTouched()){
 
             mCamera.unproject(justTouchedPoint.set(Gdx.input.getX(),Gdx.input.getY(),0));

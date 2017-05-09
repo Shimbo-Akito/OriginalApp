@@ -9,6 +9,12 @@ public class OriginalApp extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		setScreen(new TitleScreen(this));
+		//setScreen(new FieldScreen(this));
+	}
+
+	public void toFieldScreen(){
+		batch = new SpriteBatch();
 		setScreen(new FieldScreen(this));
 	}
 

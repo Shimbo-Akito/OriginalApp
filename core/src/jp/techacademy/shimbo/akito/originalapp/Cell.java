@@ -1,5 +1,6 @@
 package jp.techacademy.shimbo.akito.originalapp;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.reflect.Field;
@@ -106,6 +107,7 @@ public class Cell {
 
     public void draw(Camera camera){
 
+        Gdx.gl.glLineWidth(4);
         mShapeRenderer = new ShapeRenderer();
         mShapeRenderer.setProjectionMatrix(camera.combined);
         mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);

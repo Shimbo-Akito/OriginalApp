@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player {
     ShapeRenderer mShapeRenderer;
-    static float PLAYER_VELOCITY = 5.0f;
+    static float PLAYER_VELOCITY = 6.0f;
 
     static int PLAYER_COLOR_BLUE = 0;
     static int PLAYER_COLOR_RED = 1;
